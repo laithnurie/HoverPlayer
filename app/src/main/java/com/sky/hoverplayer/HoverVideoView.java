@@ -6,7 +6,7 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.VideoView;
 
-    public class HoverVideoView extends VideoView {
+public class HoverVideoView extends VideoView {
     public HoverVideoView(Context context) {
         super(context);
         init();
