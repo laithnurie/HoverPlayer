@@ -9,6 +9,9 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.android.exoplayer.util.Util;
+import com.sky.hoverplayer.player.PlayerActivity;
+
 public class HoverPlayerActivity extends AppCompatActivity {
 
     @Override
@@ -44,6 +47,9 @@ public class HoverPlayerActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            return true;
+        } else if (id == R.id.action_player) {
+            startActivity(PlayerActivity.getPlayerIntent(this, "http://playertest.longtailvideo.com/adaptive/captions/playlist.m3u8", Util.TYPE_HLS));
             return true;
         }
 
