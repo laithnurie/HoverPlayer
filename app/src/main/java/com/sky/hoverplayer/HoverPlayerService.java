@@ -11,8 +11,6 @@ import android.os.Build;
 import android.os.IBinder;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
-import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 
@@ -20,8 +18,6 @@ public class HoverPlayerService extends Service {
     private WindowManager windowManager;
     private FrameLayout floatingView;
     private HoverVideoView hoverVideoView;
-    private int _xDelta;
-    private int _yDelta;
     private Point szWindow = new Point();
 
     @SuppressWarnings("deprecation")
@@ -40,6 +36,8 @@ public class HoverPlayerService extends Service {
         floatingView = (FrameLayout) inflater.inflate(R.layout.video_view, null);
         hoverVideoView = new HoverVideoView(this);
         hoverVideoView.setVideoURI(Uri.parse(videoUrl));
+        FrameLayout.LayoutParams hoverVideoViewLP = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
+        hoverVideoView.setLayoutParams(hoverVideoViewLP);
         floatingView.addView(hoverVideoView);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
@@ -51,8 +49,8 @@ public class HoverPlayerService extends Service {
         }
 
         WindowManager.LayoutParams params = new WindowManager.LayoutParams(
-                WindowManager.LayoutParams.WRAP_CONTENT,
-                WindowManager.LayoutParams.WRAP_CONTENT,
+                640,
+                360,
                 WindowManager.LayoutParams.TYPE_PHONE,
                 WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH | WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
                 PixelFormat.TRANSLUCENT);
@@ -61,35 +59,7 @@ public class HoverPlayerService extends Service {
         params.x = 0;
         params.y = 30;
         windowManager.addView(floatingView, params);
-
-        floatingView.setOnTouchListener(new View.OnTouchListener() {
-
-            @Override
-            public boolean onTouch(View view, MotionEvent event) {
-                final int X = (int) event.getRawX();
-                final int Y = (int) event.getRawY();
-                switch (event.getAction() & MotionEvent.ACTION_MASK) {
-                    case MotionEvent.ACTION_DOWN:
-                        WindowManager.LayoutParams lParams = (WindowManager.LayoutParams) view.getLayoutParams();
-                        _xDelta = X - lParams.x;
-                        _yDelta = Y - lParams.y;
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        break;
-                    case MotionEvent.ACTION_POINTER_DOWN:
-                        break;
-                    case MotionEvent.ACTION_POINTER_UP:
-                        break;
-                    case MotionEvent.ACTION_MOVE:
-                        WindowManager.LayoutParams layoutParams = (WindowManager.LayoutParams) view.getLayoutParams();
-                        layoutParams.x = X - _xDelta;
-                        layoutParams.y = Y - _yDelta;
-                        windowManager.updateViewLayout(view, layoutParams);
-                        break;
-                }
-                return true;
-            }
-        });
+        floatingView.setOnTouchListener(new HoverVideoViewGestures(HoverPlayerService.this, windowManager));
     }
 
 
@@ -130,7 +100,7 @@ public class HoverPlayerService extends Service {
             handleStart(intent.getStringExtra("videoUrl"));
             return super.onStartCommand(intent, flags, startId);
         } else {
-            if(intent.getStringExtra("videoUrl") != null){
+            if (intent.getStringExtra("videoUrl") != null) {
                 hoverVideoView.stopPlayback();
                 hoverVideoView.setVideoURI(Uri.parse(intent.getStringExtra("videoUrl")));
                 hoverVideoView.start();
