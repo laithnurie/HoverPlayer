@@ -29,7 +29,9 @@ public class HoverPlayerActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startService(new Intent(HoverPlayerActivity.this, HoverPlayerService.class));
+                Intent videoViewService = new Intent(HoverPlayerActivity.this, HoverPlayerService.class);
+                videoViewService.putExtra("videoUrl", "http://video.news.sky.com/video/h264/vod/700/2016/01/DIGI120732FRSWIPETECHSHOW160129163058011454085472545700.mp4");
+                startService(videoViewService);
             }
         });
 

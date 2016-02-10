@@ -2,7 +2,6 @@ package com.sky.hoverplayer;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.net.Uri;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.VideoView;
@@ -31,7 +30,6 @@ import android.widget.VideoView;
 
 
     private void init() {
-        setVideoURI(Uri.parse("http://video.news.sky.com/video/h264/vod/700/2016/01/DIGI120732FRSWIPETECHSHOW160129163058011454085472545700.mp4"));
         start();
     }
 

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.PixelFormat;
 import android.graphics.Point;
+import android.net.Uri;
 import android.os.Build;
 import android.os.IBinder;
 import android.view.Gravity;
@@ -31,11 +32,14 @@ public class HoverPlayerService extends Service {
 
     }
 
-    private void handleStart() {
+    private void handleStart(String videoUrl) {
         windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
 
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
         floatingView = (FrameLayout) inflater.inflate(R.layout.video_view, null);
+        HoverVideoView hoverVideoView = new HoverVideoView(this);
+        hoverVideoView.setVideoURI(Uri.parse(videoUrl));
+        floatingView.addView(hoverVideoView);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             windowManager.getDefaultDisplay().getSize(szWindow);
@@ -122,7 +126,7 @@ public class HoverPlayerService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         // TODO Auto-generated method stub
         if (startId == Service.START_STICKY) {
-            handleStart();
+            handleStart(intent.getStringExtra("videoUrl"));
             return super.onStartCommand(intent, flags, startId);
         } else {
             return Service.START_NOT_STICKY;
