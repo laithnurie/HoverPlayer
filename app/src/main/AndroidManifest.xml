@@ -26,10 +26,6 @@
 
         <service android:name=".HoverPlayerService" />
 
-        <activity
-            android:name=".player.PlayerActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:theme="@style/PlayerTheme" />
 
     </application>
 

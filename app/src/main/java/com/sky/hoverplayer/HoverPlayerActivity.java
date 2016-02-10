@@ -8,16 +8,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
 
 import com.sky.hoverplayer.adapter.MovieAdapter;
 import com.sky.hoverplayer.data.Movie;
 
 import java.util.ArrayList;
-
-import com.google.android.exoplayer.util.Util;
-import com.sky.hoverplayer.player.PlayerActivity;
 
 public class HoverPlayerActivity extends AppCompatActivity {
 
@@ -49,31 +44,6 @@ public class HoverPlayerActivity extends AppCompatActivity {
         MovieAdapter adapter = new MovieAdapter(data);
         rv.setAdapter(adapter);
 
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_hover_player, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        } else if (id == R.id.action_player) {
-            startActivity(PlayerActivity.getPlayerIntent(this, "http://playertest.longtailvideo.com/adaptive/captions/playlist.m3u8", Util.TYPE_HLS));
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
 
