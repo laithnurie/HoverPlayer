@@ -26,23 +26,12 @@ public class HoverPlayerActivity extends AppCompatActivity implements View.OnCli
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent videoViewService = new Intent(HoverPlayerActivity.this, HoverPlayerService.class);
-                videoViewService.putExtra("videoUrl", "http://video.news.sky.com/video/h264/vod/700/2016/01/DIGI120732FRSWIPETECHSHOW160129163058011454085472545700.mp4");
-                startService(videoViewService);
-            }
-        });
-
         rv = (RecyclerView) findViewById(R.id.rv);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         rv.setLayoutManager(llm);
         initialiseData();
         MovieAdapter adapter = new MovieAdapter(data, this);
         rv.setAdapter(adapter);
-
     }
 
     private void initialiseData() {
@@ -92,6 +81,7 @@ public class HoverPlayerActivity extends AppCompatActivity implements View.OnCli
                 "http://media.skynews.com/media/images/generated/2016/2/9/445960/default/v1/11118226-1-1-992x558.jpg",
                 "http://video.news.sky.com/video/h264/vod/700/2016/02/DIGI010541TUBONEMARROWLARAED4RH1454993775601700.mp4"
         ));
+
     }
 
     @Override
