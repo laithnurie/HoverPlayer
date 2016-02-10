@@ -9,35 +9,38 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <RelativeLayout
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp">
-
-            <ImageView
-                android:id="@+id/movie_photo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginRight="16dp" />
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/title"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_toRightOf="@+id/movie_photo"
-                android:textSize="30sp" />
+                android:textSize="26sp" />
 
-            <TextView
-                android:id="@+id/description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/title"
-                android:layout_toRightOf="@+id/movie_photo" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        </RelativeLayout>
+                <ImageView
+                    android:layout_margin="4dp"
+                    android:id="@+id/movie_photo"
+                    android:layout_width="150dp"
+                    android:layout_height="84dp" />
+
+                <TextView
+                    android:layout_margin="4dp"
+                    android:id="@+id/description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/title"
+                    android:layout_toRightOf="@+id/movie_photo" />
+
+            </LinearLayout>
+        </LinearLayout>
 
     </android.support.v7.widget.CardView>
 

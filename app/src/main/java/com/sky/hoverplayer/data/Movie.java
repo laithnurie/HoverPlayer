@@ -6,13 +6,16 @@ package com.sky.hoverplayer.data;
 public class Movie {
 
     String title;
-    String imageUrl;
     String description;
+    String imageUrl;
+    String videoUrl;
 
-    public Movie(String title, String description, String imageUrl ) {
+    public Movie(String title, String description, String imageUrl , String videoUrl) {
         this.title = title;
         this.description = description;
         this.imageUrl = imageUrl;
+        this.videoUrl = videoUrl;
+
     }
 
     public String getDescription() {
@@ -21,6 +24,10 @@ public class Movie {
 
     public String getImageUrl() {
         return imageUrl;
+    }
+
+    public String getVideoUrl() {
+        return videoUrl;
     }
 
     public String getTitle() {
