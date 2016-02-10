@@ -22,10 +22,13 @@ import java.util.List;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
 
+    private View.OnClickListener onClickListener;
+
 
     Context context;
-    public MovieAdapter(List<Movie> data) {
+    public MovieAdapter(List<Movie> data, View.OnClickListener onClickListener) {
         this.data = data;
+        this.onClickListener = onClickListener;
     }
 
     private List<Movie> data;
@@ -36,14 +39,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
         this.context = viewGroup.getContext();
         View v = LayoutInflater.from(context).inflate(R.layout.movie_item, viewGroup, false);
+        v.setOnClickListener(onClickListener);
         MovieViewHolder mvh = new MovieViewHolder(v);
+
         return mvh;
     }
 
     @Override
     public void onBindViewHolder(MovieViewHolder movieViewHolder, int position) {
-
-
 
         movieViewHolder.title.setText(data.get(position).getTitle());
         movieViewHolder.description.setText(data.get(position).getDescription());

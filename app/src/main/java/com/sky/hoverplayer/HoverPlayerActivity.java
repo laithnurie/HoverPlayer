@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.sky.hoverplayer.adapter.MovieAdapter;
 import com.sky.hoverplayer.data.Movie;
@@ -19,9 +20,10 @@ import java.util.ArrayList;
 import com.google.android.exoplayer.util.Util;
 import com.sky.hoverplayer.player.PlayerActivity;
 
-public class HoverPlayerActivity extends AppCompatActivity {
+public class HoverPlayerActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ArrayList<Movie> data = new ArrayList<>();
+    private RecyclerView rv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,15 +41,11 @@ public class HoverPlayerActivity extends AppCompatActivity {
             }
         });
 
-        RecyclerView rv = (RecyclerView) findViewById(R.id.rv);
+        rv = (RecyclerView) findViewById(R.id.rv);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         rv.setLayoutManager(llm);
-
-
         initaliseData();
-
-
-        MovieAdapter adapter = new MovieAdapter(data);
+        MovieAdapter adapter = new MovieAdapter(data, this);
         rv.setAdapter(adapter);
 
     }
@@ -96,28 +94,29 @@ http://video.news.sky.com/video/h264/vod/700/2016/02/DIGI114024FRSWIPETECHSHOWDI
         Movie m1 = new Movie("NHS Proton Beam Therapy",
                 "New evidence suggests proton beam therapy has fewer side effects for cancer patients than traditional radiotherapy.",
                 "http://media.skynews.com/media/images/generated/2016/1/17/441710/default/v1/cegrab-20160117-231858-635-1-992x558.jpg",
-                "http://media.skynews.com/media/images/generated/2016/1/17/441710/default/v1/cegrab-20160117-231858-635-1-992x558.jpg"
+                "http://video.news.sky.com/video/h264/vod/700/2016/01/DIGI1704411SAPROTONTHERAPYWILLIAMS1160130171307711454174095643700.mp4"
         );
         Movie m2 = new Movie("Apollo Astronaut Edgar Mitchell Dies",
                 "Apollo 14 astronaut Edgar Mitchell, who was the sixth man to walk on the moon, has died in Florida, aged 85.",
                 "http://media.skynews.com/media/images/generated/2016/2/6/445494/default/v1/edgar-mitchell-1-992x558.jpg",
-                "http://media.skynews.com/media/images/generated/2016/1/17/441710/default/v1/cegrab-20160117-231858-635-1-992x558.jpg"
+                "http://video.news.sky.com/video/h264/vod/700/2016/02/DIGI093835SANASAMITCHELLLS1454753482919700.mp4"
         );
 
-
         Movie m3 = new Movie("Swipe Goes Behind The Scenes At BAE",
-                "The Eurofighter Typhoon is one of the most advanced combat aircraft in the world and BAE Systems has created a helmet..\n",
-              //
-
+                "The Eurofighter Typhoon is one of the most advanced combat aircraft in the world and BAE Systems has created a helmet",
                 "http://media.skynews.com/media/images/generated/2016/2/4/445199/default/v1/cegrab-20160204-153608-455-1-992x558.jpg",
-                //
-
-
-                "http://media.skynews.com/media/images/generated/2016/1/17/441710/default/v1/cegrab-20160117-231858-635-1-992x558.jpg"
+                "http://video.news.sky.com/video/h264/vod/700/2016/02/DIGI114024FRSWIPETECHSHOWDIGITALEDIT2050216V21454673644562700.mp4"
         );
         data.add(m1);
         data.add(m2);
         data.add(m3);
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        int itemPosition = rv.getChildPosition(v);
+        String videoUrl = data.get(itemPosition).getVideoUrl();
+        android.util.Log.e("DSDS", videoUrl);
     }
 }
