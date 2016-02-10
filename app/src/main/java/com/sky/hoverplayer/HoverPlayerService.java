@@ -19,6 +19,7 @@ import android.widget.FrameLayout;
 public class HoverPlayerService extends Service {
     private WindowManager windowManager;
     private FrameLayout floatingView;
+    private HoverVideoView hoverVideoView;
     private int _xDelta;
     private int _yDelta;
     private Point szWindow = new Point();
@@ -37,7 +38,7 @@ public class HoverPlayerService extends Service {
 
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
         floatingView = (FrameLayout) inflater.inflate(R.layout.video_view, null);
-        HoverVideoView hoverVideoView = new HoverVideoView(this);
+        hoverVideoView = new HoverVideoView(this);
         hoverVideoView.setVideoURI(Uri.parse(videoUrl));
         floatingView.addView(hoverVideoView);
 
@@ -129,6 +130,11 @@ public class HoverPlayerService extends Service {
             handleStart(intent.getStringExtra("videoUrl"));
             return super.onStartCommand(intent, flags, startId);
         } else {
+            if(intent.getStringExtra("videoUrl") != null){
+                hoverVideoView.stopPlayback();
+                hoverVideoView.setVideoURI(Uri.parse(intent.getStringExtra("videoUrl")));
+                hoverVideoView.start();
+            }
             return Service.START_NOT_STICKY;
         }
     }

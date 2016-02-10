@@ -8,9 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.Toast;
+
 
 import com.sky.hoverplayer.adapter.MovieAdapter;
 import com.sky.hoverplayer.data.Movie;
@@ -90,6 +88,8 @@ http://video.news.sky.com/video/h264/vod/700/2016/02/DIGI114024FRSWIPETECHSHOWDI
     public void onClick(View v) {
         int itemPosition = rv.getChildPosition(v);
         String videoUrl = data.get(itemPosition).getVideoUrl();
-        android.util.Log.e("DSDS", videoUrl);
+        Intent videoViewService = new Intent(HoverPlayerActivity.this, HoverPlayerService.class);
+        videoViewService.putExtra("videoUrl", videoUrl);
+        startService(videoViewService);
     }
 }
