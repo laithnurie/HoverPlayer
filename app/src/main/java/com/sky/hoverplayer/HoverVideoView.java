@@ -31,8 +31,7 @@ import android.widget.VideoView;
 
 
     private void init() {
-        setVideoURI(Uri.parse("http://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_1mb.mp4"));
-        requestFocus();
+        setVideoURI(Uri.parse("http://video.news.sky.com/video/h264/vod/700/2016/01/DIGI120732FRSWIPETECHSHOW160129163058011454085472545700.mp4"));
         start();
     }
 

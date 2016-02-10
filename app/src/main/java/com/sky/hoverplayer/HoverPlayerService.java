@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.PixelFormat;
 import android.graphics.Point;
-import android.net.Uri;
 import android.os.Build;
 import android.os.IBinder;
 import android.view.Gravity;
@@ -15,11 +14,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
-import android.widget.VideoView;
 
 public class HoverPlayerService extends Service {
     private WindowManager windowManager;
-//    private HoverVideoView videoView;
     private FrameLayout floatingView;
     private int _xDelta;
     private int _yDelta;
@@ -38,7 +35,7 @@ public class HoverPlayerService extends Service {
         windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
 
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-        floatingView = (FrameLayout) inflater.inflate(R.layout.video_view_test, null);
+        floatingView = (FrameLayout) inflater.inflate(R.layout.video_view, null);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             windowManager.getDefaultDisplay().getSize(szWindow);
@@ -56,7 +53,6 @@ public class HoverPlayerService extends Service {
                 PixelFormat.TRANSLUCENT);
 
         params.gravity = Gravity.TOP | Gravity.LEFT;
-        //starting position
         params.x = 0;
         params.y = 30;
         windowManager.addView(floatingView, params);
